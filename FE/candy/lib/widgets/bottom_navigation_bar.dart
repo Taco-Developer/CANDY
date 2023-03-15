@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:candy/screens/barcode_scan.dart';
+import 'package:candy/screens/my_page.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});
@@ -14,13 +16,37 @@ class BottomNavigation extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Icon(Icons.home_outlined),
-            Image.asset(
-              'assets/images/barcode.png',
-              width: 24,
-              height: 24,
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BarcodeScan()),
+                );
+              },
+              child: const Icon(Icons.home_outlined),
             ),
-            const Icon(Icons.person_2_outlined)
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BarcodeScan()),
+                );
+              },
+              child: Image.asset(
+                'assets/images/barcode.png',
+                width: 24,
+                height: 24,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyPage()),
+                );
+              },
+              child: const Icon(Icons.person_2_outlined),
+            )
           ],
         ),
       ),
