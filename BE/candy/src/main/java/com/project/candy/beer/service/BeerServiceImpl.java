@@ -20,14 +20,14 @@ public class BeerServiceImpl implements BeerService{
 
   private final BeerRepository beerRepository;
 
-  @Override
-  public Beer findById(Long id) {
-    return beerRepository.findById(id).orElseThrow(()-> new NotFoundExceptionMessage());
-  }
-
-  @Override
-  public Beer findByBeerKrNameOrBeerEnNameOrBarcode(String beerKrName, String beerEnName,
-      String barcode) {
-    return null;
-  }
+//  @Override
+//  public Beer findById(Long id) {
+//    return beerRepository.findById(id).orElseThrow(()-> new NotFoundExceptionMessage());
+//  }
+//
+//  @Override
+//  public Beer findByBeerKrNameOrBeerEnNameOrBarcode(String beerKrName, String beerEnName,
+//      String barcode) {
+//    return null;
+//  }
 }
