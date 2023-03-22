@@ -6,7 +6,6 @@ import com.project.candy.beer.repository.BeerRepository;
 import com.project.candy.calendar.entity.Calendar;
 import com.project.candy.calendar.repository.CalendarRepository;
 import com.project.candy.country.dto.ReadCountryResponse;
-import com.project.candy.country.entity.Country;
 import com.project.candy.country.service.CountryService;
 import com.project.candy.exception.exceptionMessage.NotFoundExceptionMessage;
 import com.project.candy.like.entity.Like;
@@ -71,12 +70,15 @@ public class BeerServiceImpl implements BeerService {
   }
 
   @Override
-  public void createLikeBeer(String userEmail) {
+  public void createLikeBeer(Long beerId, String userEmail) {
+
+    User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new NotFoundExceptionMessage());
+    Beer beer = beerRepository.findById(beerId).orElseThrow(() -> new NotFoundExceptionMessage());
 
   }
 
   @Override
-  public void deleteLikeBeer(String userEmail) {
+  public void deleteLikeBeer(Long beerId, String userEmail) {
 
   }
 
