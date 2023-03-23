@@ -32,8 +32,8 @@ public class CalendarController {
    * @param userEmail
    * @return
    */
-  @PostMapping("calecndar")
-  public ResponseEntity<?> createCalendar(@RequestBody String userEmail) {
+  @PostMapping(path = "calendar", headers = "email")
+  public ResponseEntity<?> createCalendar(@RequestHeader("email") String userEmail) {
     calendarService.createCalendar(userEmail);
     return new ResponseEntity<>(HttpStatus.OK);
   }
@@ -46,8 +46,8 @@ public class CalendarController {
    * @param month
    * @return
    */
-  @GetMapping(path = "calendar", headers = "Email")
-  public ResponseEntity<?> findCalendarByEmailAndDate(@RequestHeader("Email") String userEmail, @RequestParam int year, @RequestParam int month) {
+  @GetMapping(path = "calendar", headers = "email")
+  public ResponseEntity<?> findCalendarByEmailAndDate(@RequestHeader("email") String userEmail, @RequestParam int year, @RequestParam int month) {
     List<ReadCalendarResponse> calendarList = calendarService.readCalendarList(userEmail, year, month);
     return new ResponseEntity<>(calendarList, HttpStatus.OK);
   }

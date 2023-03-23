@@ -30,8 +30,8 @@ public class UserController {
    * @param createUserRequest
    * @return
    */
-  @PostMapping(path = "sign-up", headers = "Email")
-  public ResponseEntity<?> createUser(@RequestHeader("Email") String userEmail, @RequestBody CreateUserRequest createUserRequest) {
+  @PostMapping(path = "sign-up", headers = "email")
+  public ResponseEntity<?> createUser(@RequestHeader("email") String userEmail, @RequestBody CreateUserRequest createUserRequest) {
     boolean return_value = userService.CreateUser(userEmail, createUserRequest);
     return new ResponseEntity<Boolean>(return_value, HttpStatus.OK);
   }
@@ -43,8 +43,8 @@ public class UserController {
    * @param userEmail
    * @return
    */
-  @GetMapping(path = "user", headers = "Email")
-  public ResponseEntity<?> findUserByEmail(@RequestHeader("Email") String userEmail) {
+  @GetMapping(path = "user", headers = "email")
+  public ResponseEntity<?> findUserByEmail(@RequestHeader("email") String userEmail) {
     return new ResponseEntity<ReadUserByEmail>(userService.readUserByEmail(userEmail), HttpStatus.OK);
   }
 
