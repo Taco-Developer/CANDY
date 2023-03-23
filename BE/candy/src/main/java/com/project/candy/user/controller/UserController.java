@@ -35,6 +35,12 @@ public class UserController {
         return new ResponseEntity<Boolean>(return_value, HttpStatus.OK);
     }
 
+    /**
+     *  한명의 Email을 헤더로 받으면,
+     *  해당 유저의 nickName , profileImage 를 리턴
+     * @param userEmail
+     * @return
+     */
     @GetMapping(path = "user", headers = "HEADER")
     public ResponseEntity<?> findUserByEmail (@RequestHeader("HEADER") String userEmail){
         return new ResponseEntity<ReadUserByEmail>(userService.readUserByEmail(userEmail), HttpStatus.OK);
