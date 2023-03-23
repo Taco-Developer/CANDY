@@ -10,4 +10,5 @@ import com.project.candy.review.dto.CreateReviewRequest;
  */
 public interface ReviewService {
   public void CreateReview(long beerId,CreateReviewRequest createReviewRequest);
+
 }

@@ -5,6 +5,7 @@ import com.project.candy.review.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,5 +28,10 @@ public class ReviewController {
   public ResponseEntity<?> createReview (@PathVariable("beer-id")long beerId,@RequestBody CreateReviewRequest createReviewRequest){
     reviewService.CreateReview(beerId,createReviewRequest);
     return ResponseEntity.ok("200");
+  }
+
+  @GetMapping("")
+  public ResponseEntity<?> findAllReview(@PathVariable("beer-id")long beerId){
+
   }
 }
