@@ -1,8 +1,10 @@
 package com.project.candy.review.controller;
 
 import com.project.candy.review.dto.CreateReviewRequest;
+import com.project.candy.review.dto.ReadReviewResponse;
 import com.project.candy.review.service.ReviewService;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * packageName    : com.project.candy.review.controller
- * fileName       : ReviewController
- * date           : 2023-03-22
- * description    : Review 엔티티와 관련된 api 요청을 처리하는 컨트롤러
+ * packageName    : com.project.candy.review.controller fileName       : ReviewController date
+ * : 2023-03-22 description    : Review 엔티티와 관련된 api 요청을 처리하는 컨트롤러
  */
 @RestController
 @RequestMapping("/review")
@@ -25,13 +25,15 @@ public class ReviewController {
   private final ReviewService reviewService;
 
   @PostMapping("/{beer-id}")
-  public ResponseEntity<?> createReview (@PathVariable("beer-id")long beerId,@RequestBody CreateReviewRequest createReviewRequest){
-    reviewService.CreateReview(beerId,createReviewRequest);
-    return ResponseEntity.ok("200");
+  public ResponseEntity<?> createReview(@PathVariable("beer-id") long beerId,
+      @RequestBody CreateReviewRequest createReviewRequest) {
+    reviewService.CreateReview(beerId, createReviewRequest);
+    return ResponseEntity.ok("201");
   }
 
-  @GetMapping("")
-  public ResponseEntity<?> findAllReview(@PathVariable("beer-id")long beerId){
-
+  @GetMapping("/{beer-id}")
+  public ResponseEntity<?> readAllReview(@PathVariable("beer-id") long beerId) {
+    List<ReadReviewResponse> response=reviewService.ReadAllReview(beerId);
+    return ResponseEntity.ok("200");
   }
 }
