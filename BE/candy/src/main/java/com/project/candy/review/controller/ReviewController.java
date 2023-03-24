@@ -6,6 +6,7 @@ import com.project.candy.review.service.ReviewService;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,13 +28,16 @@ public class ReviewController {
   @PostMapping("/{beer-id}")
   public ResponseEntity<?> createReview(@PathVariable("beer-id") long beerId,
       @RequestBody CreateReviewRequest createReviewRequest) {
-    reviewService.CreateReview(beerId, createReviewRequest);
-    return ResponseEntity.ok("201");
+
+    if(reviewService.CreateReview(beerId, createReviewRequest)){
+      return new ResponseEntity<>(true, HttpStatus.CREATED);
+    };
+    return new ResponseEntity<>(false,HttpStatus.OK);
   }
 
   @GetMapping("/{beer-id}")
   public ResponseEntity<?> readAllReview(@PathVariable("beer-id") long beerId) {
     List<ReadReviewResponse> response=reviewService.ReadAllReview(beerId);
-    return ResponseEntity.ok("200");
+    return ResponseEntity.ok(response);
   }
 }

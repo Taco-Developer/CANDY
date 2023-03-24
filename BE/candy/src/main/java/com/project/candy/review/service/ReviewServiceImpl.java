@@ -9,8 +9,8 @@ import com.project.candy.review.entity.Review;
 import com.project.candy.review.repository.ReviewRepository;
 import com.project.candy.user.entity.User;
 import com.project.candy.user.repository.UserRepository;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,16 +32,22 @@ public class ReviewServiceImpl implements ReviewService {
 
   @Override
   @Transactional
-  public void CreateReview(long beerId, CreateReviewRequest createReviewRequest) {
-    Beer beer = beerRepository.findById(beerId)
-        .orElseThrow(() -> new NotFoundExceptionMessage(NotFoundExceptionMessage.NOT_FOUND_BEER));
-
-    User user = userRepository.findByEmail(createReviewRequest.getUserEmail())
+  // 하나의 맥주에 대해 사용자는 하나의 리뷰만 만들 수 있다.
+  public boolean CreateReview(long beerId, CreateReviewRequest createReviewRequest) {
+    User user=userRepository.findByEmail(createReviewRequest.getUserEmail())
         .orElseThrow(() -> new NotFoundExceptionMessage(NotFoundExceptionMessage.NOT_FOUND_USER));
 
-    Review review = Review.create(user, beer, createReviewRequest);
+    Beer beer=beerRepository.findById(beerId)
+        .orElseThrow(() -> new NotFoundExceptionMessage(NotFoundExceptionMessage.NOT_FOUND_BEER));
 
-    reviewRepository.save(review);
+    List<Review> review=reviewRepository.findAllByUser(user);
+
+    // 해당 아이디로 작성된 review 데이터가 없거나 삭제된 경우에만 리뷰를 추가 할 수 있다.
+    if(review.size()==0 || review.get(0).getBaseEntity().isDelete()){
+      reviewRepository.save(Review.create(user, beer, createReviewRequest));
+      return true;
+    }
+    return false;
   }
 
   @Override
@@ -49,18 +55,16 @@ public class ReviewServiceImpl implements ReviewService {
     Beer beer = beerRepository.findById(beerId)
         .orElseThrow(() -> new NotFoundExceptionMessage(NotFoundExceptionMessage.NOT_FOUND_BEER));
 
-    // 리뷰 리스트를 가져와서
     List<ReadReviewResponse> reviewList =reviewRepository.findAllByBeer(beer).stream().map(review -> {
+
       long userId=review.getUser().getId();
       User user=userRepository.findById(userId)
           .orElseThrow(() -> new NotFoundExceptionMessage(NotFoundExceptionMessage.NOT_FOUND_USER));
 
-      ReadReviewResponse response=ReadReviewResponse.bu
-    });
+      ReadReviewResponse response=ReadReviewResponse.EntityToDto(user,review);
 
-    List<ReadReviewResponse> response=new ArrayList<>();
-
-
+      return response;
+    }).collect(Collectors.toList());
 
     return reviewList;
   }

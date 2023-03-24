@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class CreateReviewRequest {
 
   String userEmail;
-  float aroma;
-  float mouthfeel;
-  float flavor;
-  float appearance;
-  float overall;
+  double aroma;
+  double mouthfeel;
+  double flavor;
+  double appearance;
+  double overall;
   String contents;
 }
