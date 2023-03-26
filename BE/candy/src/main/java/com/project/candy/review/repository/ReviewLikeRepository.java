@@ -16,5 +16,11 @@ import java.util.Optional;
  */
 public interface ReviewLikeRepository extends JpaRepository<ReviewLike, Long> {
 
+  /**
+   * 유저와 리뷰객체를 기반으로 DB에서 좋아요가 추가된 ReviewLike 객체를 찾는 메소드
+   * @param user
+   * @param review
+   * @return
+   */
   Optional<ReviewLike> findByUserAndReview(User user, Review review);
 }

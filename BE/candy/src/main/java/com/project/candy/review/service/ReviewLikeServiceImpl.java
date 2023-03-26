@@ -35,6 +35,11 @@ public class ReviewLikeServiceImpl implements ReviewLikeService {
 
   private final ReviewLikeRepository reviewLikeRepository;
 
+  /**
+   * desc : 리뷰아이디와 유저이메일 기반으로 리뷰에 좋아요 추가
+   * @param reviewId
+   * @param userEmail
+   */
   @Override
   @Transactional
   public void createLikeReview(Long reviewId, String userEmail) {
@@ -66,6 +71,11 @@ public class ReviewLikeServiceImpl implements ReviewLikeService {
     reviewLikeRepository.save(createReviewLike);
   }
 
+  /**
+   * desc : 리뷰아이디와 유저이메일 기반으로 리뷰에 좋아요 삭제
+   * @param reviewId
+   * @param userEmail
+   */
   @Override
   @Transactional
   public void deleteLikeReview(Long reviewId, String userEmail) {
