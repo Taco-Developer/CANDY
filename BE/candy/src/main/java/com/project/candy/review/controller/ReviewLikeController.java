@@ -1,5 +1,6 @@
 package com.project.candy.review.controller;
 
+import com.project.candy.review.service.ReviewLikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +17,31 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ReviewLikeController {
 
-  @PostMapping("/{beer-id}")
+  private final ReviewLikeService reviewLikeService;
+
+  /**
+   * desc : 리뷰에 좋아요를 추가하는 메소드
+   * @param reviewId
+   * @param userEmail
+   * @return
+   */
+  @PostMapping("/{review-id}")
   public ResponseEntity<?> createLikeBeer(
           @PathVariable(name = "review-id") Long reviewId, @RequestHeader(value = "email") String userEmail) {
-//    likesService.createLikeBeer(beerId, userEmail);
+    reviewLikeService.createLikeReview(reviewId, userEmail);
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
+  /**
+   * desc : 리뷰에 좋아요를 삭제하는 메소드
+   * @param reviewId
+   * @param userEmail
+   * @return
+   */
   @DeleteMapping("/{review-id}")
   public ResponseEntity<?> deleteLikeBeer(
           @PathVariable(name = "review-id") Long reviewId, @RequestHeader(value = "email") String userEmail) {
-//    likesService.deleteLikeBeer(beerId, userEmail);
+    reviewLikeService.deleteLikeReview(reviewId,userEmail);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }
