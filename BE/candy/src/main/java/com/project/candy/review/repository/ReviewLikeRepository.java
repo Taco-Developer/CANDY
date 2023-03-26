@@ -6,6 +6,7 @@ import com.project.candy.review.entity.ReviewLike;
 import com.project.candy.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,4 +24,11 @@ public interface ReviewLikeRepository extends JpaRepository<ReviewLike, Long> {
    * @return
    */
   Optional<ReviewLike> findByUserAndReview(User user, Review review);
-}
+
+  /**
+   * desc : 해당 리뷰의 좋아요 개수를 구하기 위한 메소드
+   * @param review
+   * @return
+   */
+  List<ReviewLike> findAllByReview(Review review);
+ }
