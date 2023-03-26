@@ -12,6 +12,9 @@ import com.project.candy.statistics.entity.Statistics;
 import com.project.candy.statistics.repository.StatisticsRepository;
 import com.project.candy.user.entity.User;
 import com.project.candy.user.repository.UserRepository;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -20,6 +23,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -123,6 +127,26 @@ public class StatisticsServiceImpl implements StatisticsService {
     pieCountryList.add(new Pie("기타", 100.0 - sumCountryPercent));
 
     return ReadStatisticResponse.entityToDTO(foundStatistics, pieCountryList, pieStyleList);
+  }
+
+  @Override
+  @Scheduled(cron = "0 0 4 1/1 * *", zone = "Asia/Seoul")
+//  @Scheduled(cron = "1/1 0 0 * * *", zone = "Asia/Seoul")
+  @Transactional
+  public void createStatisticsScheduled() {
+    List<BeerHistory> foundBeerHistories = beerHistoryRepository.findAllByUser();
+    int totalDrinkCount = foundBeerHistories.size(); //인증 개수
+//    log.info("schedule 확인: "+ LocalDateTime.now());
+    LocalDate now = LocalDate.now();
+    int offset = 1;
+    for(int i=totalDrinkCount-1;i>=0;i--){
+      LocalDate target = foundBeerHistories.get(i).getCreatedAt().toLocalDate();
+      if(!target.isEqual(now.minusDays(offset))){ //현재에서 하루 빼고 equal이여야 한다.
+        break; //다르면 탈출, offset이 연속 일수다.
+      }
+      offset+=1;
+    }
+
   }
 
   private class Order {
