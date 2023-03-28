@@ -50,14 +50,14 @@ unique_name_city_df.to_csv(path_or_buf=addr+'import_user_sql.csv')
 #     db='candy',
 #     charset="utf8"
 # )
-# user="candy"
-# password = "candy@b105"
-# host = "j8b105.p.ssafy.io"
-# database = "candy"
-# port=8306
-# password = quote_plus(password)
-# engine = create_engine(f"mysql://{user}:{password}@{host}:{port}/{database}")
-# conn = engine.connect()
+user="candy"
+password = "candy@b105"
+host = "j8b105.p.ssafy.io"
+database = "candy"
+port=8306
+password = quote_plus(password)
+engine = create_engine(f"mysql://{user}:{password}@{host}:{port}/{database}")
+conn = engine.connect()
 
 # # dtypesql = {'exclusive':sqlalchemy.types.VARCHAR(10), 
 # #           'cost':sqlalchemy.types.VARCHAR(10), 
@@ -65,13 +65,13 @@ unique_name_city_df.to_csv(path_or_buf=addr+'import_user_sql.csv')
 # #           'createdAt':sqlalchemy.DateTime(), 
 # # }
 
-# unique_name_city_df.to_sql(
-#     name='user',
-#     con= engine,
-#     if_exists='append',
-#     index=False
-#     # dtype=dtypesql
-# )
+unique_name_city_df.to_sql(
+    name='user',
+    con= engine,
+    if_exists='append',
+    index=False
+    # dtype=dtypesql
+)
 
-# conn.close()
+conn.close()
 ################################################################

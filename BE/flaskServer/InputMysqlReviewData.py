@@ -56,42 +56,42 @@ unique_name_city_df = data[['아이디']].drop_duplicates().reset_index(drop=Tru
 print("csv 에 있는 유저 값 : ")
 print(unique_name_city_df.shape)
 
-# review_df = pd.DataFrame(columns=[
-#                                      'appearance',
-#                                      'aroma',
-#                                      'flavor',
-#                                      'mouthfeel',
-#                                      'overall',
-#                                      'beer_id',
-#                                      'user_id'
-#                                      ])
-# review_df.astype({'user_id':'int','beer_id':'int'}).dtypes
-# for  index, row in data.iterrows() :
-#     tmp_beer_id = sql_beer.loc[sql_beer['beer_en_name']==row['맥주']]['beer_id']
-#     tmp_user_id = filttered_user.loc[filttered_user['nickname']==row['아이디']]['user_id']
-#     tmp_appearance = row['Appearance']
-#     tmp_aroma = row['Aroma']
-#     tmp_flavor = row['Flavor']
-#     tmp_mouthfeel = row['Mouthfeel']
-#     tmp_overall=row['Overall']
-#     new_row = {'beer_id': tmp_beer_id, 'user_id': tmp_user_id, 'appearance':tmp_appearance ,
-#                'aroma':tmp_aroma , 'flavor':tmp_flavor , 'mouthfeel' : tmp_mouthfeel , 'overall':tmp_overall}
-#     review_df= pd.concat([review_df,  pd.DataFrame.from_dict(data=new_row, orient='columns')] , ignore_index=True)
+review_df = pd.DataFrame(columns=[
+                                     'appearance',
+                                     'aroma',
+                                     'flavor',
+                                     'mouthfeel',
+                                     'overall',
+                                     'beer_id',
+                                     'user_id'
+                                     ])
+review_df.astype({'user_id':'int','beer_id':'int'}).dtypes
+for  index, row in data.iterrows() :
+    tmp_beer_id = sql_beer.loc[sql_beer['beer_en_name']==row['맥주']]['beer_id']
+    tmp_user_id = filttered_user.loc[filttered_user['nickname']==row['아이디']]['user_id']
+    tmp_appearance = row['Appearance']
+    tmp_aroma = row['Aroma']
+    tmp_flavor = row['Flavor']
+    tmp_mouthfeel = row['Mouthfeel']
+    tmp_overall=row['Overall']
+    new_row = {'beer_id': tmp_beer_id, 'user_id': tmp_user_id, 'appearance':tmp_appearance ,
+               'aroma':tmp_aroma , 'flavor':tmp_flavor , 'mouthfeel' : tmp_mouthfeel , 'overall':tmp_overall}
+    review_df= pd.concat([review_df,  pd.DataFrame.from_dict(data=new_row, orient='columns')] , ignore_index=True)
     
-# print(review_df.head())
-# print(review_df.sample)
-# print(review_df.shape)
+print(review_df.head())
+print(review_df.sample)
+print(review_df.shape)
 
-# review_df['created_at']= "2023-03-22 09:56:24.00000"
-# review_df['updated_at']= "2023-03-22 09:56:24.00000"
-# review_df['constructor']="admin@admin.com"
-# review_df['is_delete']=False
-# review_df['updater']="admin@admin.com"
-# review_df['like_count']=0
-# review_df['contents']=' '
-addr = "D:\\workspace\\S08P22B105\\BE\\flaskServer"
-# review_df.to_csv(path_or_buf=addr+'import_sql.csv')
-user_df.to_csv(path_or_buf=addr+'import_sql.csv')
+review_df['created_at']= "2023-03-22 09:56:24.00000"
+review_df['updated_at']= "2023-03-22 09:56:24.00000"
+review_df['constructor']="admin@admin.com"
+review_df['is_delete']=False
+review_df['updater']="admin@admin.com"
+review_df['like_count']=0
+review_df['contents']=' '
+addr = "D:\\workspace\\S08P22B105\\BE\\flaskServer\\"
+review_df.to_csv(path_or_buf=addr+'import_sql.csv')
+
 
 
 # unique_name_city_df.to_sql(
