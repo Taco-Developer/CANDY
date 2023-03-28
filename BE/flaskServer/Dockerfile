@@ -2,7 +2,7 @@
 FROM python:3.9.10
 
 # set working directory
-WORKDIR /app
+# WORKDIR /app
 
 # copy requirements file
 COPY requirements.txt .
