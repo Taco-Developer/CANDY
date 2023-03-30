@@ -10,8 +10,11 @@ def recommend_and_schedule():
     model.recommend_flow()
     print("오늘의 스케줄링 끝!")
 
+def make_log():
+    print("5초마다 확인! ")
+
 schedule.add_job(recommend_and_schedule, 'cron', week='1-53', day_of_week='0-6', hour='4')
-schedule.add_job(recommend_and_schedule, 'cron', week='1-53', day_of_week='0-6', second='5,15,25')
+schedule.add_job(make_log, 'cron', week='1-53', day_of_week='0-6', second='5,15,25')
 schedule.start()
 
 @api.route('/hello')  # 데코레이터 이용, '/hello' 경로에 클래스 등록
