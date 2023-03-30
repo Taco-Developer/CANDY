@@ -154,7 +154,7 @@ def reccomend_beer_prefer_base(prefer_list, user_id) :
     print(sql)
     conn.cursor().execute(sql)
     conn.commit()
-    conn.close
+    conn.close()
     return beer_list
 
 
@@ -220,7 +220,7 @@ def reccomend_cf (email,cur_user_id):
 
     conn.cursor().execute(sql)
     conn.commit()
-    conn.close
+    conn.close()
     return "협업 필터링 작업완료"
 
 # email 을 받으면 해당 유저에 대한 candy로직을 분기해주는 메소드
@@ -272,5 +272,5 @@ def recommend_flow() :
     conn.close()
     return "전부 순회 완료!"
 # print(recommend_flow())
-reccomend_beer_similar()
+# reccomend_beer_similar()
 
