@@ -298,7 +298,7 @@ def recommend_flow() :
 # charset="utf8"
 # )
 # reccomend_candy(conn ,'ttt@naver.com')
-reccomend_cf('2733471329@candy.com', 2504)
+# reccomend_cf('2733471329@candy.com', 2504)
 # reccomend_cf('2723641995@candy.com', 2498)
 # conn.close()
 # print(datetime.datetime.now(timezone('Asia/Seoul')))
